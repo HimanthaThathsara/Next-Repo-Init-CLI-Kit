@@ -8,6 +8,7 @@ const fs = require("fs-extra");
 
     // The response from all of the questions
     let response = {};
+
     // Get of the templates
     const templates = (await fs.readdir(`${process.mainModule.path}/templates_collection`))
         .map((template) => {
