@@ -1,14 +1,35 @@
 {
-  "name": "nextjs-template",
-  "version": "2.0.0",
-  "description": "clack-core and promte",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "next-repo-init",
+  "version": "3.1.0",
+  "description": "A CLI toolkit to generate full-stack project templates from local folders or remote GitHub/GitLab repositories.",
+  "bin": {
+    "next-repo-init": "./index.js"
   },
-  "author": "",
-  "license": "ISC",
+  "main": "./index.js",
+  "type": "module",
+   "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "cli",
+    "template",
+    "project-generator",
+    "boilerplate",
+    "scaffold",
+    "fullstack",
+    "starter-kit",
+    "github-template",
+    "gitlab-template",
+    "next-repo-init",
+    "nodejs",
+    "typescript",
+    "frontend-backend",
+    "developer-tools"
+  ],
+  "author": "Himantha Thathsara",
+  "license": "MIT",
   "dependencies": {
     "@clack/prompts": "^0.11.0",
     "check-internet-connected": "^2.0.6",
@@ -16,5 +37,19 @@
     "fs-extra": "^11.3.0",
     "path": "^0.12.7",
     "picocolors": "^1.1.1"
-  }
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HimanthaThathsara/Next-Repo-Init-CLI-Kit"
+  },
+  "bugs": {
+    "url": "https://github.com/HimanthaThathsara/Next-Repo-Init-CLI-Kit/issues"
+  },
+  "homepage": "https://github.com/HimanthaThathsara/Next-Repo-Init-CLI-Kit#readme"
 }
