@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+
+
 import degit from 'degit';
 import fs from "fs-extra";
 import color from 'picocolors';
