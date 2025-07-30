@@ -128,12 +128,79 @@ async function main() {
 	const packages_location = changeset.packages;
 	const ProjectName = changeset.ProjectName;
 
+	// const spin = p.spinner();
+	// spin.start(`Installing ${ProjectName}...`);
+	// // Check if the project already exist
+	// if (await fs.exists(ProjectName)) {
+
+	// 	// Ask if we should override
+	// 	const overwrite = await p.confirm({
+	// 		message: 'You already have a project with that name do you want to overwrite it?',
+	// 	});
+
+	// 	// Override the project if the user said yes
+	// 	if (overwrite === true) {
+
+	// 		// Remove old files
+	// 		await fs.remove(ProjectName);
+	// 		// Copy the template
+	// 		if (!isConnected) {
+	// 			await copyTemplate(ProjectName, packages_location);
+	// 		}
+	// 		else {
+	// 			await Git_clone(ProjectName, packages_location);
+	// 		}
+	// 	}
+
+	// }
+	// else {
+	// 	if (!isConnected) {
+	// 		await copyTemplate(ProjectName, packages_location);
+	// 	}
+	// 	else {
+	// 		await Git_clone(ProjectName, packages_location);
+	// 	}
+	// }
+
+	// async function copyTemplate(name, template) {
+
+	// 	// Copy all of the files except the template.json file
+	// 	await fs.copy(template, name, {
+	// 		filter: (src, dest) => {
+	// 			if (src.includes("template.json"))
+	// 				return false;
+	// 			return true;
+	// 		}
+	// 	});
+
+	// }
+
+	// async function Git_clone(ProjectName, packages_location) {
+
+	// 	degit(`${packages_location}`, { force: true })
+	// 		.clone(ProjectName)
+	// 		.then(() => {
+	// 			p.log.success(`Installing ${ProjectName} Successfully!`);
+	// 			p.log.info(`Run ${color.cyan('npm install')} to install dependencies`);
+	// 		})
+	// 		.catch((error) => {
+	// 			p.log.error(`Installing ${ProjectName} failed !`);
+	// 			onCancel();
+	// 		});
+
+	// }
+	// spin.stop(`Installing ${ProjectName}...`);
+
+
+
+
 	await p.tasks([
 		{
 			title: 'Installing via npm',
 			task: async () => {
 				// console.log(packages_location);
-				await sleep(1000);
+
+				await sleep(3000);
 
 				// Check if the project already exist
 				if (await fs.exists(ProjectName)) {
@@ -150,56 +217,52 @@ async function main() {
 						await fs.remove(ProjectName);
 						// Copy the template
 						if (!isConnected) {
-							copyTemplate(ProjectName, packages_location);
+							await copyTemplate(ProjectName, packages_location);
 						}
 						else {
-							Git_clone(ProjectName, packages_location);
+							await Git_clone(ProjectName, packages_location);
 						}
 					}
 
 				}
 				else {
 					if (!isConnected) {
-						copyTemplate(ProjectName, packages_location);
+						await copyTemplate(ProjectName, packages_location);
 					}
 					else {
-						Git_clone(ProjectName, packages_location);
+						await Git_clone(ProjectName, packages_location);
 					}
 				}
-
-				async function copyTemplate(name, template) {
-
-					// Copy all of the files except the template.json file
-					await fs.copy(template, name, {
-						filter: (src, dest) => {
-							if (src.includes("template.json"))
-								return false;
-							return true;
-						}
-					});
-
-				}
-
-				async function Git_clone(ProjectName, packages_location) {
-
-					degit(`${packages_location}`, { force: true })
-						.clone(ProjectName)
-						.then(() => {
-							p.log.success(`Installing ${ProjectName} Successfully!`);
-							p.log.info(`Run ${color.cyan('npm install')} to install dependencies`);
-						})
-						.catch((error) => {
-							p.log.error(`Installing ${ProjectName} failed !`);
-							onCancel();
-						});
-
-				}
-
-				// p.log.success("Install");
-				// return 'Installed via npm';
 			},
 		},
 	]);
+
+	async function copyTemplate(name, template) {
+
+		// Copy all of the files except the template.json file
+		await fs.copy(template, name, {
+			filter: (src, dest) => {
+				if (src.includes("template.json"))
+					return false;
+				return true;
+			}
+		});
+	}
+
+	async function Git_clone(ProjectName, packages_location) {
+
+		degit(`${packages_location}`, { force: true })
+			.clone(ProjectName)
+			.then(() => {
+				p.log.success(`Installing ${ProjectName} Successfully!`);
+				p.log.info(`Run ${color.cyan('npm install')} to install dependencies`);
+				p.outro(`Changeset added! ${color.underline(color.cyan('.changeset/orange-crabs-sing.md'))}`);
+			})
+			.catch((error) => {
+				p.log.error(`Installing ${ProjectName} failed !`);
+				onCancel();
+			});
+	}
 
 	//The isCancel function is a guard that detects when a user cancels a question with CTRL + C. 
 	if (p.isCancel(changeset)) {
@@ -207,7 +270,7 @@ async function main() {
 	}
 
 	// "outro" functions will print a message to end a prompt session.
-	p.outro(`Changeset added! ${color.underline(color.cyan('.changeset/orange-crabs-sing.md'))}`);
+
 }
 
 main().catch(console.error);
