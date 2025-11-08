@@ -101,7 +101,7 @@ Optionally scaffolds common integrations: Tailwind, Prisma/Supabase, NextAuth, s
 
 2. Install using NPM :
 ```sh
-❯ cd Next-Repo-Init-CLI-Kit
+❯ npx i next-repo-init
 ```
 
 ---
